@@ -97,7 +97,7 @@ urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
         "https://id.indeed.com/jobs?q=migas&sort=date",
         "https://id.indeed.com/jobs?q=geodesi&sort=date",
         "https://id.indeed.com/jobs?q=tambang&sort=date",
-        'https://id.indeed.com/jobs?q="gis"&sort=date'
+        # 'https://id.indeed.com/jobs?q="gis"&sort=date'
         ]
 
 if __name__ == "__main__":

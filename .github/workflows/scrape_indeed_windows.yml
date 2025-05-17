@@ -10,6 +10,7 @@ jobs:
   build:
     env:
       PY_COLORS: "1"
+      PYTHONIOENCODING: 'utf-8' # <--- Add this line
     strategy:
       fail-fast: false
       max-parallel: 1 # Keep parallelism at 1 if your scraping target is sensitive

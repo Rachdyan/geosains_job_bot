@@ -12,6 +12,7 @@ jobs:
       # Set DISPLAY environment variable for Xvfb
       # This will be set by xvfb-run, but can be good to have a default
       DISPLAY: ':99.0' 
+      PYTHONIOENCODING: 'utf-8'
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -104,7 +105,7 @@ jobs:
         python -c "import os; print(f\"/bin/google-chrome-stable exists: {os.path.exists('/bin/google-chrome-stable')}\")"
         python -c "import os; print(f\"/bin/chromium-browser exists: {os.path.exists('/bin/chromium-browser')}\")"
         python -c "import os; print(f\"/bin/chromium exists: {os.path.exists('/bin/chromium')}\")"
-        
+
     - name: Display Chrome binary that's used by SeleniumBase
       run: |
         python -c "from seleniumbase.core import detect_b_ver; print(detect_b_ver.get_binary_location('google-chrome'))"
