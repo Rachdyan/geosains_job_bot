@@ -206,10 +206,10 @@ def parse_job_card_indeed(job_card_soup):
 
 
 def get_job_from_indeed_url(url, sb):
-    print(f"Getting job from {url}")
+    print(f'Getting job from {url}')
     # sb.open(url)
     sb.driver.uc_open_with_reconnect(url,
-                                     reconnect_time=5)
+                                     reconnect_time=3)
     sb.uc_gui_handle_cf()
     # sb.uc_gui_click_cf()
     sb.sleep(3)

@@ -97,8 +97,9 @@ urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
         "https://id.indeed.com/jobs?q=migas&sort=date",
         "https://id.indeed.com/jobs?q=geodesi&sort=date",
         "https://id.indeed.com/jobs?q=tambang&sort=date",
-        # 'https://id.indeed.com/jobs?q="gis"&sort=date'
+        'https://id.indeed.com/jobs?q=%22gis%22&sort=date'
         ]
+
 
 if __name__ == "__main__":
     with SB(uc=True,
@@ -146,7 +147,7 @@ if __name__ == "__main__":
 
         # sb.open("https://id.indeed.com")
         sb.driver.uc_open_with_reconnect("https://id.indeed.com",
-                                         reconnect_time=5)
+                                         reconnect_time=3)
         # sb.uc_gui_click_cf()
         sb.uc_gui_handle_cf()
         sb.sleep(3)
@@ -157,7 +158,7 @@ if __name__ == "__main__":
             ])
 
         previously_scraped_df_sheet = spreadsheet\
-            .worksheet('Scraped not Filtered')
+            .worksheet('Geosains Job')
         previously_scraped_df = get_as_dataframe(previously_scraped_df_sheet)
         previously_scraped_df['job_id'] = pd.to_numeric(
             previously_scraped_df['job_id'], errors='coerce')\
