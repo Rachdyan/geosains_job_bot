@@ -228,19 +228,23 @@ def get_job_from_indeed_url(url, sb):
 
     all_jobs_df = []
     print(f"Found {len(job_cards_initial)} job cards on the first page.")
-    for card_soup in job_cards_initial:
-        job_info_df = parse_job_card_indeed(card_soup)
-        # Correctly check if the DataFrame is not None and not empty
-        if job_info_df is not None and not job_info_df.empty:
-            if job_info_df.iloc[0]['job_title'] is not None:
-                all_jobs_df.append(job_info_df)
+    try:
+        for card_soup in job_cards_initial:
+            job_info_df = parse_job_card_indeed(card_soup)
+            # Correctly check if the DataFrame is not None and not empty
+            if job_info_df is not None and not job_info_df.empty:
+                if job_info_df.iloc[0]['job_title'] is not None:
+                    all_jobs_df.append(job_info_df)
 
-    if len(all_jobs_df) > 0:
-        all_jobs_df = pd.concat(all_jobs_df, ignore_index=True)
+        if len(all_jobs_df) > 0:
+            all_jobs_df = pd.concat(all_jobs_df, ignore_index=True)
 
-    print("All Jobs Df:")
-    print(all_jobs_df)
-    return all_jobs_df
+        print("All Jobs Df:")
+        print(all_jobs_df)
+        return all_jobs_df
+    except Exception as e:
+        print("Error", e)
+        return None
 
 
 def enrich_indeed(job_info_series: pd.Series, spreadsheet, sb):
