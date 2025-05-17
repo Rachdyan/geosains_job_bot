@@ -210,8 +210,8 @@ def get_job_from_indeed_url(url, sb):
     # sb.open(url)
     sb.driver.uc_open_with_reconnect(url,
                                      reconnect_time=5)
-    # sb.uc_gui_handle_cf()
-    sb.uc_gui_click_cf()
+    sb.uc_gui_handle_cf()
+    # sb.uc_gui_click_cf()
     sb.sleep(3)
     # last_height = sb.execute_script("return document.body.scrollHeight")
 
