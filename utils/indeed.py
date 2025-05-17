@@ -207,7 +207,10 @@ def parse_job_card_indeed(job_card_soup):
 
 def get_job_from_indeed_url(url, sb):
     print(f"Getting job from {url}")
-    sb.open(url)
+    # sb.open(url)
+    sb.driver.uc_open_with_reconnect(url,
+                                     reconnect_time=10)
+    sb.uc_gui_handle_cf()
     sb.sleep(3)
     # last_height = sb.execute_script("return document.body.scrollHeight")
 

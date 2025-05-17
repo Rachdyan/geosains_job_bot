@@ -141,7 +141,10 @@ if __name__ == "__main__":
         sb.driver.execute_script("Object.defineProperty(navigator, \
                                  'webdriver',{get: () => undefined})")
 
-        sb.open("https://id.indeed.com")
+        # sb.open("https://id.indeed.com")
+        sb.driver.uc_open_with_reconnect("https://id.indeed.com",
+                                         reconnect_time=10)
+        sb.driver.uc_gui_handle_cf()
         sb.sleep(3)
         all_jobs_df = pd.concat([
             get_job_from_indeed_url(
