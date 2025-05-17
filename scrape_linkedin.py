@@ -130,21 +130,21 @@ urls = [
         f"&geoId=102478259&keywords=foreman&location=Indonesia&refresh=true"
         f"&sortBy=R&position=18&pageNum=0"
     ),
-    (
-        f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
-        f"&geoId=102478259&keywords=supervisor&location=Indonesia&refresh=true"
-        f"&sortBy=R&position=18&pageNum=0"
-    ),
-    (
-        f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
-        f"&geoId=102478259&keywords=manager&location=Indonesia&refresh=true"
-        f"&sortBy=R&position=18&pageNum=0"
-    ),
-    (
-        f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
-        f"&geoId=102478259&keywords=head&location=Indonesia&refresh=true"
-        f"&sortBy=R&position=18&pageNum=0"
-    )
+    # (
+    #     f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
+    #     f"&geoId=102478259&keywords=supervisor&location=Indonesia&refresh=true"
+    #     f"&sortBy=R&position=18&pageNum=0"
+    # ),
+    # (
+    #     f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
+    #     f"&geoId=102478259&keywords=manager&location=Indonesia&refresh=true"
+    #     f"&sortBy=R&position=18&pageNum=0"
+    # ),
+    # (
+    #     f"{linkedin_url}/?currentJobId=3612329140&f_I=61%2C63%2C56%2C57"
+    #     f"&geoId=102478259&keywords=head&location=Indonesia&refresh=true"
+    #     f"&sortBy=R&position=18&pageNum=0"
+    # )
 ]
 
 
