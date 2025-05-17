@@ -1,4 +1,4 @@
-name: Indeed Scrape
+name: Indeed Scrape XFVB
 on:
   #schedule:
     # At 7:30 PM Jakarta Time (12:30 UTC, assuming WIB is UTC+7)
@@ -104,11 +104,11 @@ jobs:
         python -c "import os; print(f\"/bin/google-chrome-stable exists: {os.path.exists('/bin/google-chrome-stable')}\")"
         python -c "import os; print(f\"/bin/chromium-browser exists: {os.path.exists('/bin/chromium-browser')}\")"
         python -c "import os; print(f\"/bin/chromium exists: {os.path.exists('/bin/chromium')}\")"
-
+        
     - name: Display Chrome binary that's used by SeleniumBase
       run: |
-        python -c "from seleniumbase.core import detect_b_ver; print(f'SeleniumBase detected Chrome binary: {detect_b_ver.get_binary_location('google-chrome')}')"
-        python -c "from seleniumbase import undetected; print(f'Undetected Chromium detected Chrome executable: {undetected.find_chrome_executable()}')"
+        python -c "from seleniumbase.core import detect_b_ver; print(detect_b_ver.get_binary_location('google-chrome'))"
+        python -c "from seleniumbase import undetected; print(undetected.find_chrome_executable())"
 
     - name: Make sure pytest with sb is working
       run: |

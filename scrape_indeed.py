@@ -101,9 +101,11 @@ urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
         ]
 
 if __name__ == "__main__":
-    with SB(uc=True, headless=False, xvfb=True,
+    with SB(uc=True,
+            # headless=True,
+            xvfb=True,
             proxy=proxy_string,
-            incognito=True,
+            # incognito=True,
             maximize=True,
             ) as sb:
         sb.driver.execute_cdp_cmd(
