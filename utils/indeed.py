@@ -217,8 +217,8 @@ def get_job_from_indeed_url(url, sb):
 
     # Scrape the first page
     page_source = sb.get_page_source()
-    print("page source")
-    print(page_source)
+    # print("page source")
+    # print(page_source)
     soup = BeautifulSoup(page_source, 'html.parser')
 
     # Common selectors for job cards on Indeed. Adjust if necessary.
