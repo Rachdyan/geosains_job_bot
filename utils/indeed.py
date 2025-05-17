@@ -209,7 +209,7 @@ def get_job_from_indeed_url(url, sb):
     print(f"Getting job from {url}")
     # sb.open(url)
     sb.driver.uc_open_with_reconnect(url,
-                                     reconnect_time=10)
+                                     reconnect_time=5)
     # sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
     sb.sleep(3)
@@ -217,6 +217,8 @@ def get_job_from_indeed_url(url, sb):
 
     # Scrape the first page
     page_source = sb.get_page_source()
+    print("page source")
+    print(page_source)
     soup = BeautifulSoup(page_source, 'html.parser')
 
     # Common selectors for job cards on Indeed. Adjust if necessary.

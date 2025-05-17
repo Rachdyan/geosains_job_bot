@@ -101,7 +101,7 @@ urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
         ]
 
 if __name__ == "__main__":
-    with SB(uc=True, headless=False, xvfb=True,
+    with SB(uc=True, headless=True, xvfb=True,
             proxy=proxy_string,
             maximize=True,
             ) as sb:
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
         # sb.open("https://id.indeed.com")
         sb.driver.uc_open_with_reconnect("https://id.indeed.com",
-                                         reconnect_time=10)
+                                         reconnect_time=5)
         sb.uc_gui_click_cf()
         sb.sleep(3)
         all_jobs_df = pd.concat([
