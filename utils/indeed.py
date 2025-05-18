@@ -467,14 +467,14 @@ def enrich_indeed(job_info_series: pd.Series, spreadsheet, sb):
 
                     print(f"Scraped industry for {current_company_name}:"
                           f" {new_scraped_industries}")
-                    
+
                     new_entry_df = pd.DataFrame(
                         [{'job_company': current_company_name,
                             'industries': new_scraped_industries}])
                     try:
                         export_to_sheets(spreadsheet=spreadsheet,
-                                            sheet_name='Industry Indeed',
-                                            df=new_entry_df, mode='a')
+                                         sheet_name='Industry Indeed',
+                                         df=new_entry_df, mode='a')
                         print("Appended to sheet")
                     except Exception as e:
                         print(f"Error writing to sheet {e}")
