@@ -156,17 +156,18 @@ if __name__ == "__main__":
                 url=url, sb=sb)
             for url in urls
             ])
-        
+
         print(f"There are a total of {all_jobs_df.shape[0]} jobs..")
 
         previously_scraped_df_sheet = spreadsheet\
             .worksheet('Geosains Job')
         previously_scraped_df = get_as_dataframe(previously_scraped_df_sheet)
-        #previously_scraped_df['job_id'] = pd.to_numeric(
+        # previously_scraped_df['job_id'] = pd.to_numeric(
         #    previously_scraped_df['job_id'], errors='coerce')\
         #    .astype('Int64')
         # Then convert to string
-        previously_scraped_df = previously_scraped_df[previously_scraped_df['source'] == "indeed"]
+        previously_scraped_df = previously_scraped_df[
+            previously_scraped_df['source'] == "indeed"]
         previously_scraped_df['job_id'] = previously_scraped_df['job_id']\
             .astype(str)
         # Replace '<NA>' if you had NaNs and don't want them as strings
@@ -177,8 +178,9 @@ if __name__ == "__main__":
         all_jobs_df_filtered = all_jobs_df[
             ~all_jobs_df.job_id.isin(previously_scraped_df.job_id.tolist())]
         # all_jobs_df_filtered
-        
-        print(f"There are a total of {all_jobs_df_filtered.shape[0]} filtered jobs..")
+
+        print(f"There are a total of {all_jobs_df_filtered.shape[0]}"
+              "filtered jobs..")
         print(all_jobs_df_filtered)
 
         enriched_job_data = []
