@@ -467,18 +467,29 @@ def enrich_indeed(job_info_series: pd.Series, spreadsheet, sb):
 
                     print(f"Scraped industry for {current_company_name}:"
                           f" {new_scraped_industries}")
+                    
+                    new_entry_df = pd.DataFrame(
+                        [{'job_company': current_company_name,
+                            'industries': new_scraped_industries}])
+                    try:
+                        export_to_sheets(spreadsheet=spreadsheet,
+                                            sheet_name='Industry Indeed',
+                                            df=new_entry_df, mode='a')
+                        print("Appended to sheet")
+                    except Exception as e:
+                        print(f"Error writing to sheet {e}")
 
-                    if new_scraped_industries != "Not Available":
-                        new_entry_df = pd.DataFrame(
-                            [{'job_company': current_company_name,
-                              'industries': new_scraped_industries}])
-                        try:
-                            export_to_sheets(spreadsheet=spreadsheet,
-                                             sheet_name='Industry Indeed',
-                                             df=new_entry_df, mode='a')
-                            print("Appended to sheet")
-                        except Exception as e:
-                            print(f"Error writing to sheet {e}")
+                    # if new_scraped_industries != "Not Available":
+                    #     new_entry_df = pd.DataFrame(
+                    #         [{'job_company': current_company_name,
+                    #           'industries': new_scraped_industries}])
+                    #     try:
+                    #         export_to_sheets(spreadsheet=spreadsheet,
+                    #                          sheet_name='Industry Indeed',
+                    #                          df=new_entry_df, mode='a')
+                    #         print("Appended to sheet")
+                    #     except Exception as e:
+                    #         print(f"Error writing to sheet {e}")
 
                     print(f"Navigating back to original job URL: {url}")
                     sb.open(url)

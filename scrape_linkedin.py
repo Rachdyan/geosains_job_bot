@@ -198,6 +198,7 @@ if __name__ == "__main__":
         previously_scraped_df_sheet = spreadsheet\
             .worksheet('Scraped not Filtered')
         previously_scraped_df = get_as_dataframe(previously_scraped_df_sheet)
+        previously_scraped_df = previously_scraped_df[previously_scraped_df['source'] == "linkedin"]
         previously_scraped_df['job_id'] = pd.to_numeric(
             previously_scraped_df['job_id'], errors='coerce')\
             .astype('Int64')
