@@ -1,8 +1,8 @@
 name: Jobstreet Scrape
 on:
-  # schedule:
+  schedule:
     # At 7:30 PM Jakarta Time (08:45 UTC)
-    #- cron: '0 8,12,2 * * *' # Cron times are in UTC
+    - cron: '0 8,12,2 * * *' # Cron times are in UTC
   workflow_dispatch:
 #  // push:
 #     branches: [ master ]

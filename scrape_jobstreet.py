@@ -121,6 +121,9 @@ all_jobs_df_filtered = all_jobs_df[
     ~all_jobs_df.job_id.isin(previously_scraped_df.job_id.tolist())]
 # all_jobs_df_filtered
 
+all_jobs_df_filtered = all_jobs_df_filtered.drop_duplicates()\
+    .reset_index(drop=True)
+
 print(f"There are a total of {all_jobs_df_filtered.shape[0]}"
       " filtered jobs..")
 print(all_jobs_df_filtered)
