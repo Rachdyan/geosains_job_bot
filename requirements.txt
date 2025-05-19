@@ -11,3 +11,4 @@ python-telegram-bot==22.1
 python_dateutil==2.8.2
 selenium
 seleniumbase
+cloudscraper
