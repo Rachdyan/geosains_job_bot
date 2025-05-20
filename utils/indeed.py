@@ -241,7 +241,10 @@ def get_job_from_indeed_url(url, sb):
 
         print("All Jobs Df:")
         print(all_jobs_df)
-        return all_jobs_df
+        if all_jobs_df is None:
+            return None
+        else:
+            return all_jobs_df
     except Exception as e:
         print("Error", e)
         return None
