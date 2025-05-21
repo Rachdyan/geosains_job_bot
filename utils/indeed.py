@@ -265,12 +265,15 @@ def get_job_from_indeed_keyword(keyword, sb):
     sb.uc_click('button[type*="submit"]')
     sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
+    sb.uc_gui_handle_captcha()
     sb.sleep(15)
 
     screenshot_path = "./img/ss_checkbox2.png"
 
     try:
-        location = pyautogui.locateOnScreen(screenshot_path, confidence=0.8)
+        location = pyautogui.locateOnScreen(screenshot_path,
+                                            # confidence=0.8
+                                            )
         print('image found')
         center = pyautogui.center(location)
         print(f"Clicking {center}")
