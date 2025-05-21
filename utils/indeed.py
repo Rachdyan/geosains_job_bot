@@ -266,9 +266,6 @@ def get_job_from_indeed_keyword(keyword, sb):
     sb.sleep(15)
     # sb.uc_gui_handle_cf()
     # sb.uc_gui_click_cf()
-    sb.uc_gui_handle_captcha()
-    sb.uc_gui_click_captcha()
-
     screenshot_path = "./img/ss_checkbox2.png"
 
     try:
@@ -279,10 +276,14 @@ def get_job_from_indeed_keyword(keyword, sb):
         center = pyautogui.center(location)
         print(f"Clicking {center}")
         pyautogui.click(center)
+        # sb.uc_gui_click_x_y(center)
         sb.sleep(5)
     except pyautogui.ImageNotFoundException:
         print('ImageNotFoundException: image not found')
     # last_height = sb.execute_script("return document.body.scrollHeight")
+
+    sb.uc_gui_handle_captcha()
+    sb.uc_gui_click_captcha()
 
     # Scrape the first page
     page_source = sb.get_page_source()
