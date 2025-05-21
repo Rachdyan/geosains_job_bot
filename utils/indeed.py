@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import json
 from gspread_dataframe import get_as_dataframe
 from utils.gsheet_utils import export_to_sheets
+import pyautogui
 
 
 def parse_job_card_indeed(job_card_soup):
@@ -264,7 +265,18 @@ def get_job_from_indeed_keyword(keyword, sb):
     sb.uc_click('button[type*="submit"]')
     sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
-    sb.sleep(60)
+    sb.sleep(15)
+
+    screenshot_path = "./img/ss_checkbox2.png"
+
+    try:
+        location = pyautogui.locateOnScreen(screenshot_path, confidence=0.8)
+        print('image found')
+        center = pyautogui.center(location)
+        print(f"Clicking {center}")
+        pyautogui.click(center)
+    except pyautogui.ImageNotFoundException:
+        print('ImageNotFoundException: image not found')
     # last_height = sb.execute_script("return document.body.scrollHeight")
 
     # Scrape the first page
