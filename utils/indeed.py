@@ -261,10 +261,10 @@ def get_job_from_indeed_keyword(keyword, sb):
 
     sb.type('[id="text-input-what"]', f"{keyword}")
     sb.sleep(0.5)
-    sb.click('button[type*="submit"]')
+    sb.uc_click('button[type*="submit"]')
     sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
-    sb.sleep(3)
+    sb.sleep(60)
     # last_height = sb.execute_script("return document.body.scrollHeight")
 
     # Scrape the first page
