@@ -50,7 +50,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install -y xvfb xauth libxrender1 libxtst6 libxi6 # Install xvfb and related X libraries
+        sudo apt-get install -y xvfb xauth libxrender1 libxtst6 libxi6 gnome-screenshot # Install xvfb and related X libraries
 
     - name: Install Python dependencies
       run: |
