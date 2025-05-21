@@ -139,8 +139,8 @@ export_to_sheets(spreadsheet=spreadsheet, sheet_name='Geosains Job',
                  df=enriched_all_jobs_df, mode='a')
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
-TARGET_CHAT_ID = "1415309056"
-# TARGET_CHAT_ID = "-1001748601116"
+# TARGET_CHAT_ID = "1415309056"
+TARGET_CHAT_ID = "-1001748601116"
 
 
 async def main():
