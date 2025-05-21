@@ -263,11 +263,11 @@ def get_job_from_indeed_keyword(keyword, sb):
     sb.type('[id="text-input-what"]', f"{keyword}")
     sb.sleep(0.5)
     sb.uc_click('button[type*="submit"]')
+    sb.sleep(15)
     # sb.uc_gui_handle_cf()
     # sb.uc_gui_click_cf()
     # sb.uc_gui_handle_captcha()
     sb.uc_gui_click_captcha()
-    sb.sleep(15)
 
     screenshot_path = "./img/ss_checkbox2.png"
 
