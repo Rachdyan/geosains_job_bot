@@ -250,6 +250,58 @@ def get_job_from_indeed_url(url, sb):
         return None
 
 
+def get_job_from_indeed_keyword(keyword, sb):
+    print(f'Getting job from {keyword} keyword..')
+    # sb.open(url)
+    sb.driver.uc_open_with_reconnect("https://id.indeed.com",
+                                     reconnect_time=3)
+    sb.uc_gui_handle_cf()
+    sb.uc_gui_click_cf()
+    sb.sleep(3)
+
+    sb.type('[id="text-input-what"]', f"{keyword}")
+    sb.sleep(0.5)
+    sb.click('button[type*="submit"]')
+    sb.uc_gui_handle_cf()
+    sb.uc_gui_click_cf()
+    sb.sleep(3)
+    # last_height = sb.execute_script("return document.body.scrollHeight")
+
+    # Scrape the first page
+    page_source = sb.get_page_source()
+    # print("page source")
+    # print(page_source)
+    soup = BeautifulSoup(page_source, 'html.parser')
+
+    # Common selectors for job cards on Indeed. Adjust if necessary.
+    # The R code uses "ul[class *= 'Results'] > li > div[class *= 'card']"
+    job_card_selector = "div.result"
+    job_cards_initial = soup.select(job_card_selector)
+
+    all_jobs_df = []
+    print(f"Found {len(job_cards_initial)} job cards on the first page.")
+    try:
+        for card_soup in job_cards_initial:
+            job_info_df = parse_job_card_indeed(card_soup)
+            # Correctly check if the DataFrame is not None and not empty
+            if job_info_df is not None and not job_info_df.empty:
+                if job_info_df.iloc[0]['job_title'] is not None:
+                    all_jobs_df.append(job_info_df)
+
+        if len(all_jobs_df) > 0:
+            all_jobs_df = pd.concat(all_jobs_df, ignore_index=True)
+
+        print("All Jobs Df:")
+        print(all_jobs_df)
+        if all_jobs_df is None:
+            return None
+        else:
+            return all_jobs_df
+    except Exception as e:
+        print("Error", e)
+        return None
+
+
 def enrich_indeed(job_info_series: pd.Series, spreadsheet, sb):
     """
     Enriches a single job's information by visiting its Indeed page.

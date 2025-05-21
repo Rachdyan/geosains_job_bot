@@ -7,7 +7,7 @@ import os
 from gspread_dataframe import get_as_dataframe
 import asyncio
 
-from utils.disnakerja import get_job_from_disnakerja_url, enrich_disnakerja
+from utils.petromindo import get_job_from_petromindo_url, enrich_petromindo
 from utils.gsheet_utils import export_to_sheets
 from utils.telegram_utlis import process_all_jobs
 
@@ -90,8 +90,8 @@ industries = ["mining", "oil-gas"]
 
 all_jobs_df = pd.DataFrame()
 for industry in industries:
-    url = f"https://www.disnakerja.com/industri/{industry}/"
-    current_jobs = get_job_from_disnakerja_url(url, industry=industry,
+    url = f"https://www.petromindo.com/job-gallery/category/{industry}/"
+    current_jobs = get_job_from_petromindo_url(url, industry=industry,
                                                proxy_string=proxy_string)
     all_jobs_df = pd.concat([all_jobs_df, current_jobs], axis=0)
 
@@ -105,7 +105,7 @@ previously_scraped_df = get_as_dataframe(previously_scraped_df_sheet)
 #    .astype('Int64')
 # Then convert to string
 previously_scraped_df = previously_scraped_df[
-    previously_scraped_df['source'] == "disnakerja"]
+    previously_scraped_df['source'] == "petromindo"]
 previously_scraped_df['job_id'] = previously_scraped_df['job_id']\
     .astype(str)
 # Replace '<NA>' if you had NaNs and don't want them as strings
@@ -124,24 +124,23 @@ print(f"There are a total of {all_jobs_df_filtered.shape[0]}"
       " filtered jobs..")
 print(all_jobs_df_filtered)
 
-if all_jobs_df_filtered:
-    enriched_job_data = []
-    # all_jobs_sample = all_jobs_df_filtered.sample(10)
-    for index, row in all_jobs_df_filtered.iterrows():
-        enriched_info = enrich_disnakerja(
-            row, proxy_string=proxy_string)
-        enriched_job_data.append(enriched_info)
+enriched_job_data = []
+# all_jobs_sample = all_jobs_df_filtered.sample(10)
+for index, row in all_jobs_df_filtered.iterrows():
+    enriched_info = enrich_petromindo(
+        row, proxy_string=proxy_string)
+    enriched_job_data.append(enriched_info)
 
-    print("Enriching job data...")
-    enriched_all_jobs_df = pd.concat(enriched_job_data, ignore_index=True)
+print("Enriching job data...")
+enriched_all_jobs_df = pd.concat(enriched_job_data, ignore_index=True)
 
-    print("Exporting filtered job data...")
-    export_to_sheets(spreadsheet=spreadsheet, sheet_name='Geosains Job',
-                     df=enriched_all_jobs_df, mode='a')
+print("Exporting filtered job data...")
+export_to_sheets(spreadsheet=spreadsheet, sheet_name='Geosains Job',
+                 df=enriched_all_jobs_df, mode='a')
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
-# TARGET_CHAT_ID = "1415309056"
-TARGET_CHAT_ID = "-1001748601116"
+TARGET_CHAT_ID = "1415309056"
+# TARGET_CHAT_ID = "-1001748601116"
 
 
 async def main():
@@ -165,7 +164,7 @@ async def main():
 
     return final_log_report_internal
 
-if __name__ == "__main__" and all_jobs_df_filtered:
+if __name__ == "__main__":
     # Run the main asynchronous function and capture its return value
     script_level_log_report = asyncio.run(main())
 

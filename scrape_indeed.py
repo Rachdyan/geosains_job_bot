@@ -8,8 +8,7 @@ import os
 from gspread_dataframe import get_as_dataframe
 import asyncio
 
-
-from utils.indeed import get_job_from_indeed_url, enrich_indeed
+from utils.indeed import enrich_indeed, get_job_from_indeed_keyword
 from utils.gsheet_utils import export_to_sheets
 from utils.telegram_utlis import process_all_jobs
 
@@ -88,17 +87,21 @@ except Exception as e:
     print(f"An error occurred during Google Sheets setup: {e}")
     exit(1)
 
-urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
-        "https://id.indeed.com/jobs?q=geologi&sort=date",
-        "https://id.indeed.com/jobs?q=geologist&sort=date",
-        "https://id.indeed.com/jobs?q=mine&sort=date",
-        "https://id.indeed.com/jobs?q=mining&sort=date",
-        "https://id.indeed.com/jobs?q=oil+and+gas&sort=date",
-        "https://id.indeed.com/jobs?q=migas&sort=date",
-        "https://id.indeed.com/jobs?q=geodesi&sort=date",
-        "https://id.indeed.com/jobs?q=tambang&sort=date",
-        'https://id.indeed.com/jobs?q=%22gis%22&sort=date'
-        ]
+keywords = ['geology', 'geologi', 'geologist', 'mine',
+            'mining', 'oil and gas', 'migas', 'geodesi',
+            'tambang', '"gis"']
+
+# urls = ["https://id.indeed.com/jobs?q=geology&sort=date",
+#         "https://id.indeed.com/jobs?q=geologi&sort=date",
+#         "https://id.indeed.com/jobs?q=geologist&sort=date",
+#         "https://id.indeed.com/jobs?q=mine&sort=date",
+#         "https://id.indeed.com/jobs?q=mining&sort=date",
+#         "https://id.indeed.com/jobs?q=oil+and+gas&sort=date",
+#         "https://id.indeed.com/jobs?q=migas&sort=date",
+#         "https://id.indeed.com/jobs?q=geodesi&sort=date",
+#         "https://id.indeed.com/jobs?q=tambang&sort=date",
+#         'https://id.indeed.com/jobs?q=%22gis%22&sort=date'
+#         ]
 
 
 if __name__ == "__main__":
@@ -146,15 +149,22 @@ if __name__ == "__main__":
                                  'webdriver',{get: () => undefined})")
 
         # sb.open("https://id.indeed.com")
-        sb.driver.uc_open_with_reconnect("https://id.indeed.com",
-                                         reconnect_time=3)
+        # sb.driver.uc_open_with_reconnect("https://id.indeed.com",
+        #                                  reconnect_time=3)
+        # sb.uc_gui_handle_cf()
         # sb.uc_gui_click_cf()
-        sb.uc_gui_handle_cf()
-        sb.sleep(3)
+        # sb.sleep(3)
+
+        # all_jobs_df = pd.concat([
+        #     get_job_from_indeed_url(
+        #         url=url, sb=sb)
+        #     for url in urls
+        #     ])
+
         all_jobs_df = pd.concat([
-            get_job_from_indeed_url(
-                url=url, sb=sb)
-            for url in urls
+            get_job_from_indeed_keyword(
+                keyword=keyword, sb=sb)
+            for keyword in keywords
             ])
 
         print(f"There are a total of {all_jobs_df.shape[0]} jobs..")
