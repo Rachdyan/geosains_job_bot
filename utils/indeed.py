@@ -261,15 +261,18 @@ def get_job_from_indeed_keyword(keyword, sb):
     # sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
     sb.sleep(3)
-
-    sb.clear('[id="text-input-what"]')
-    sb.sleep(0.5)
-    sb.type('[id="text-input-what"]', f"{keyword}")
-    sb.sleep(0.5)
-    sb.uc_click('button[type*="submit"]')
-    sb.sleep(15)
-    # sb.uc_gui_handle_cf()
-    # sb.uc_gui_click_cf()
+    try:
+        sb.clear('[id="text-input-what"]')
+        sb.sleep(0.5)
+        sb.type('[id="text-input-what"]', f"{keyword}")
+        sb.sleep(0.5)
+        sb.uc_click('button[type*="submit"]')
+        sb.sleep(15)
+        # sb.uc_gui_handle_cf()
+        # sb.uc_gui_click_cf()
+    except Exception as e:
+        print(f"Error searching {keyword} keyword.. {e}")
+        return None
     screenshot_path = "./img/ss_checkbox2.png"
 
     try:
@@ -302,26 +305,31 @@ def get_job_from_indeed_keyword(keyword, sb):
 
     all_jobs_df = []
     print(f"Found {len(job_cards_initial)} job cards on the first page.")
-    try:
-        for card_soup in job_cards_initial:
-            job_info_df = parse_job_card_indeed(card_soup)
-            # Correctly check if the DataFrame is not None and not empty
-            if job_info_df is not None and not job_info_df.empty:
-                if job_info_df.iloc[0]['job_title'] is not None:
-                    all_jobs_df.append(job_info_df)
 
-        if len(all_jobs_df) > 0:
-            all_jobs_df = pd.concat(all_jobs_df, ignore_index=True)
-
-        print("All Jobs Df:")
-        print(all_jobs_df)
-        if all_jobs_df is None:
-            return None
-        else:
-            return all_jobs_df
-    except Exception as e:
-        print("Error", e)
+    if len(job_cards_initial) == 0:
         return None
+    else:
+        try:
+            for card_soup in job_cards_initial:
+                job_info_df = parse_job_card_indeed(card_soup)
+                # Correctly check if the DataFrame is not None and not empty
+                if job_info_df is not None and not job_info_df.empty:
+                    if job_info_df.iloc[0]['job_title'] is not None:
+                        all_jobs_df.append(job_info_df)
+
+            if len(all_jobs_df) > 0:
+                all_jobs_df = pd.concat(all_jobs_df, ignore_index=True)
+
+            print("All Jobs Df:")
+            print(all_jobs_df)
+
+            if all_jobs_df is None:
+                return None
+            else:
+                return all_jobs_df
+        except Exception as e:
+            print("Error", e)
+            return None
 
 
 def enrich_indeed(job_info_series: pd.Series, spreadsheet, sb):

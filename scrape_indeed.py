@@ -160,7 +160,7 @@ if __name__ == "__main__":
         #         url=url, sb=sb)
         #     for url in urls
         #     ])
-
+        
         all_jobs_df = pd.concat([
             get_job_from_indeed_keyword(
                 keyword=keyword, sb=sb)
