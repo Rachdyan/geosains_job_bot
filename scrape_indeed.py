@@ -107,7 +107,7 @@ keywords = ['geology', 'geologi', 'geologist', 'mine',
 if __name__ == "__main__":
     with SB(uc=True,
             # headless=True,
-            xvfb=True,
+            xvfb=False,
             proxy=proxy_string,
             # incognito=True,
             maximize=True,
