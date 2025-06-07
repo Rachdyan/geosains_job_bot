@@ -412,12 +412,19 @@ def enrich_petromindo(job_info_series: pd.Series, proxy_string):
                 desc_text = re.sub(r"\n\n</strong>\n", "\n</strong>\n",
                                    desc_text, flags=re.IGNORECASE)
 
-                result_data['job_description'] = desc_text.strip() if \
+                desc_text = desc_text.strip() if \
                     desc_text and desc_text.strip() else None
+
+                if desc_text and len(desc_text) > 5000:
+                    desc_text = desc_text[:5000]
+
+                result_data['job_description'] = desc_text
+
             except Exception as e_desc_clean:
                 print(f"Error cleaning Petromindo description: {e_desc_clean}")
 
         job_description_val = result_data.get('job_description')
+
         if job_description_val is None or \
            (isinstance(job_description_val, float) and
             pd.isna(job_description_val)) or \
