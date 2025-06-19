@@ -256,8 +256,10 @@ def get_job_from_indeed_keyword(keyword, sb):
     # sb.open(url)
     sb.activate_cdp_mode()
     # sb.activate_cdp_mode("https://id.indeed.com")
-    sb.driver.uc_open_with_reconnect("https://id.indeed.com",
-                                     reconnect_time=5)
+    # sb.driver.uc_open_with_reconnect("https://id.indeed.com",
+    #                                 reconnect_time=5)
+    sb.cdp.open("https://id.indeed.com",
+                reconnect_time=5)
     # sb.uc_gui_handle_cf()
     sb.uc_gui_click_cf()
     sb.sleep(3)

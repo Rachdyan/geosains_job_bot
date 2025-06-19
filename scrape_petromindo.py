@@ -124,55 +124,57 @@ print(f"There are a total of {all_jobs_df_filtered.shape[0]}"
       " filtered jobs..")
 print(all_jobs_df_filtered)
 
-enriched_job_data = []
-# all_jobs_sample = all_jobs_df_filtered.sample(10)
-for index, row in all_jobs_df_filtered.iterrows():
-    enriched_info = enrich_petromindo(
-        row, proxy_string=proxy_string)
-    enriched_job_data.append(enriched_info)
+if all_jobs_df_filtered.shape[0] > 0:
 
-print("Enriching job data...")
-enriched_all_jobs_df = pd.concat(enriched_job_data, ignore_index=True)
+    enriched_job_data = []
+    # all_jobs_sample = all_jobs_df_filtered.sample(10)
+    for index, row in all_jobs_df_filtered.iterrows():
+        enriched_info = enrich_petromindo(
+            row, proxy_string=proxy_string)
+        enriched_job_data.append(enriched_info)
 
-print("Exporting filtered job data...")
-export_to_sheets(spreadsheet=spreadsheet, sheet_name='Geosains Job',
-                 df=enriched_all_jobs_df, mode='a')
+    print("Enriching job data...")
+    enriched_all_jobs_df = pd.concat(enriched_job_data, ignore_index=True)
 
-BOT_TOKEN = os.environ['BOT_TOKEN']
-# TARGET_CHAT_ID = "1415309056"
-TARGET_CHAT_ID = "-1001748601116"
+    print("Exporting filtered job data...")
+    export_to_sheets(spreadsheet=spreadsheet, sheet_name='Geosains Job',
+                     df=enriched_all_jobs_df, mode='a')
 
+    BOT_TOKEN = os.environ['BOT_TOKEN']
+    # TARGET_CHAT_ID = "1415309056"
+    TARGET_CHAT_ID = "-1001748601116"
 
-async def main():
-    """
-    Main asynchronous function to process jobs and return the log report.
-    """
-    print("Starting job processing...")
-    final_log_report_internal = pd.DataFrame()
+    async def main():
+        """
+        Main asynchronous function to process jobs and return the log report.
+        """
+        print("Starting job processing...")
+        final_log_report_internal = pd.DataFrame()
 
-    if not enriched_all_jobs_df.empty:
-        final_log_report_internal = await process_all_jobs(
-            enriched_all_jobs_df, BOT_TOKEN, TARGET_CHAT_ID)
-        print("\n--- Internal Log Report (within main) ---")
-        if not final_log_report_internal.empty:
-            print(final_log_report_internal.head())
+        if not enriched_all_jobs_df.empty:
+            final_log_report_internal = await process_all_jobs(
+                enriched_all_jobs_df, BOT_TOKEN, TARGET_CHAT_ID)
+            print("\n--- Internal Log Report (within main) ---")
+            if not final_log_report_internal.empty:
+                print(final_log_report_internal.head())
+            else:
+                print("No jobs were processed or logged internally.")
         else:
-            print("No jobs were processed or logged internally.")
-    else:
-        print("The DataFrame `enriched_all_jobs__filtered_df` is empty."
-              "Nothing to process.")
+            print("The DataFrame `enriched_all_jobs__filtered_df` is empty."
+                  "Nothing to process.")
 
-    return final_log_report_internal
+        return final_log_report_internal
 
-if __name__ == "__main__":
-    # Run the main asynchronous function and capture its return value
-    script_level_log_report = asyncio.run(main())
+    if __name__ == "__main__":
+        # Run the main asynchronous function and capture its return value
+        script_level_log_report = asyncio.run(main())
 
-    print("\n--- Final Log Report ---")
-    if (script_level_log_report is not None and
-       not script_level_log_report.empty):
-        print(script_level_log_report)
-    elif script_level_log_report is not None and script_level_log_report.empty:
-        print("Log report is empty (no jobs processed or logged).")
-    else:
-        print("Log report was not generated (e.g., BOT_TOKEN not set).")
+        print("\n--- Final Log Report ---")
+        if (script_level_log_report is not None and
+           not script_level_log_report.empty):
+            print(script_level_log_report)
+        elif script_level_log_report is not None\
+                and script_level_log_report.empty:
+            print("Log report is empty (no jobs processed or logged).")
+        else:
+            print("Log report was not generated (e.g., BOT_TOKEN not set).")
