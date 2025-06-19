@@ -124,7 +124,7 @@ print(f"There are a total of {all_jobs_df_filtered.shape[0]}"
       " filtered jobs..")
 print(all_jobs_df_filtered)
 
-if all_jobs_df_filtered:
+if all_jobs_df_filtered.shape[0] > 0:
     enriched_job_data = []
     # all_jobs_sample = all_jobs_df_filtered.sample(10)
     for index, row in all_jobs_df_filtered.iterrows():
@@ -165,7 +165,7 @@ async def main():
 
     return final_log_report_internal
 
-if __name__ == "__main__" and all_jobs_df_filtered:
+if __name__ == "__main__" and all_jobs_df_filtered.shape[0] > 0:
     # Run the main asynchronous function and capture its return value
     script_level_log_report = asyncio.run(main())
 
