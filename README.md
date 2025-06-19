@@ -1,7 +1,6 @@
 <div id="top">
 
 <!-- HEADER STYLE: COMPACT -->
-<img src="readmeai/assets/logos/purple.svg" width="30%" align="left" style="margin-right: 15px">
 
 # GEOSAINS_JOB_BOT
 <em>Empowering job seekers with curated geoscientist opportunities.</em>
@@ -27,12 +26,12 @@
 2. [Overview](#overview)
 3. [Features](#features)
 4. [Project Structure](#project-structure)
-    4.1. [Project Index](#project-index)
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;4.1. [Project Index](#project-index)
 5. [Getting Started](#getting-started)
-    5.1. [Prerequisites](#prerequisites)
-    5.2. [Installation](#installation)
-    5.3. [Usage](#usage)
-    5.4. [Testing](#testing)
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;5.1. [Prerequisites](#prerequisites)
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;5.2. [Installation](#installation)
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;5.3. [Usage](#usage)
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;5.4. [Testing](#testing)
 6. [Roadmap](#roadmap)
 7. [Contributing](#contributing)
 8. [License](#license)
